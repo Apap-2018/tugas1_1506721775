@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="header">
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/dataTables.bootstrap4.min.css}">
+    <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/js/dataTables.bootstrap4.min.js}"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+          integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Lato');
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background: #f8f9fa;
+        }
+
+        .content {
+            padding: 50px;
+        }
+
+        .container-fluid {
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05) !important;
+            border-radius: 10px;
+            padding: 30px;
+            background-color: white;
+            margin-top: 20px;
+        }
+
+        .index {
+            margin-top: 0 !important;
+        }
+
+        .btn_remove {
+            width: 40px;
+            -webkit-border-radius: 0 .25em .25em 0 !important;
+            -moz-border-radius: 0 .25em .25em 0 !important;
+            border-radius: 0 .25em .25em 0 !important;
+        }
+    </style>
+</head>
+
+<div th:fragment="navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">S I P E G</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav justify-content-center">
+                <li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'active':''}">
+                    <a class="nav-link" th:href="${'/'}">Home</a>
+                </li>
+                <li class="nav-item dropdown"
+                    th:classappend="${#httpServletRequest.getRequestURI().startsWith('/pegawai') ? 'active':''}">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Pegawai
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" th:href="${'/pegawai/tambah'}">Tambah Pegawai</a>
+                        <a class="dropdown-item" th:href="${'/pegawai/cari'}">Cari Pegawai</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown"
+                    th:classappend="${#httpServletRequest.getRequestURI().startsWith('/jabatan') ? 'active':''}">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarJabatan" role="button" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Jabatan
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarJabatan">
+                        <a class="dropdown-item" th:href="${'/jabatan/viewall'}">Lihat Semua Jabatan</a>
+                        <a class="dropdown-item" th:href="${'/jabatan/tambah'}">Tambah Jabatan</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+</div>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="template :: header"></head>
+<body>
+
+<!--Navbar-->
+<div th:replace="template :: navbar"></div>
+
+<div class="content" style="height: 150px; background-color: #007bff;">
+    <div class="container-fluid" style="margin-top: 53px;">
+        <h2 style="text-align: center;"><strong>500</strong></h2>
+        <h4 style="text-align: center;">Halaman yang dicari tidak ditemukan</h4>
+        <a role="button" class="btn btn-link" th:href="@{/}" style="text-align:center;display:block;">Halaman Utama</a>
+    </div>
+</div>
+</body>
+</html>

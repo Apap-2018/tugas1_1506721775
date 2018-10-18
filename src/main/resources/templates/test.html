@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragment :: header"></head>
+<body>
+
+<!--Navbar-->
+<div th:replace="fragments/fragment :: navbar"></div>
+
+<!--Container-->
+
+<div class="content">
+    <p th:text="${validasi}"></p>
+    <p th:text="${pegawai.nip}"></p>
+    <p th:text="${pegawai.nama}"></p>
+    <p th:text="${pegawai.tanggalLahir}"></p>
+    <p th:text="${pegawai.tempatLahir}"></p>
+    <p th:text="${pegawai.tahunMasuk}"></p>
+    <p th:text="${pegawai.instansi.nama}"></p>
+
+    <div th:each="jabatan : ${pegawai.listJabatanPegawai}">
+        <p th:text="${jabatan.jabatan.nama}"></p>
+    </div>
+    updated
+</div>
+</body>
+</html>

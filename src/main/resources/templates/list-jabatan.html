@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragment :: header"></head>
+<body>
+<!--Navbar-->
+<div th:replace="fragments/fragment :: navbar"></div>
+<div style="height: 150px; background-color: #007bff;">
+    <div class="content">
+        <h3 style="color: white;">List Semua Jabatan</h3>
+        <div class="container-fluid">
+            <div th:if="${message == 'success'}" class="alert alert-success alert-dismissible fade show" role="alert">
+                Berhasil menambah jabatan!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div th:if="${message == 'success-delete'}" class="alert alert-success alert-dismissible fade show"
+                 role="alert">
+                Berhasil menghapus jabatan!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table id="example" class="table table-striped table-borderless" style="width:100%;">
+                        <thead>
+                        <tr>
+                            <th>Nama Jabatan</th>
+                            <th>Deskripsi</th>
+                            <th>Gaji Pokok (Rp)</th>
+                            <th>Jumlah Pegawai</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="jabatan : ${jabatans}">
+                            <td th:text="${jabatan.nama}"></td>
+                            <td>
+                                <div th:text="${jabatan.deskripsi}"
+                                     style=" white-space: normal;word-break: break-all; display: block;"></div>
+                            </td>
+                            <td th:text="${#numbers.formatDecimal(jabatan.gaji_pokok , 0, 'COMMA', 2, 'POINT')}"></td>
+                            <td th:if="${jabatan.listJabatanPegawai.empty}">0</td>
+                            <td th:each="jabatan, iterStat: ${jabatan.listJabatanPegawai}" th:if="${iterStat.last}"
+                                th:text="${iterStat.count}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable({
+            responsive: true
+        });
+    });
+</script>
+</html>

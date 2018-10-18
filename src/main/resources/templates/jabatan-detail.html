@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragment :: header"></head>
+<body>
+<!--Navbar-->
+<div th:replace="fragments/fragment :: navbar"></div>
+<div style="height: 150px; background-color: #007bff;">
+    <div class="content">
+        <h3 style="color:white;" th:text="'Detail Jabatan ' + ${jabatans.nama}"></h3>
+        <div class="container-fluid">
+            <div th:if="${message == 'error'}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <Strong>Jabatan tidak dapat dihapus!</Strong> Terdapat pegawai yang masih memiliki jabatan ini!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div th:if="${message == 'success'}" class="alert alert-success alert-dismissible fade show" role="alert">
+                Jabatan berhasil diperbarui!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p>Nama</p>
+                        </div>
+                        <div class="col-md-9">
+                            <p th:text="': &nbsp' + ${jabatans.nama}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p>Deskripsi</p>
+                        </div>
+                        <div class="col-md-9">
+                            <p th:text="': &nbsp' + ${jabatans.deskripsi}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p>Gaji</p>
+                        </div>
+                        <div class="col-md-9">
+                            <p th:text="${': &nbsp' + 'Rp' + #numbers.formatDecimal(jabatans.gaji_pokok , 0, 'COMMA', 2, 'POINT')}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p>Jumlah Pegawai</p>
+                        </div>
+                        <div class="col-md-9">
+                            <p th:if="${jabatans.listJabatanPegawai.empty}">: &nbsp;0</p>
+                            <p th:each="jabatan, iterStat: ${jabatans.listJabatanPegawai}" th:if="${iterStat.last}"
+                               th:text="': &nbsp' + ${iterStat.count}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <a role="button" class="btn btn-warning" th:href="@{/jabatan/ubah(idJabatan=${jabatans.id})}"><i
+                            class="fas fa-pen-square"></i> &nbsp;Ubah</a>
+
+                    <button type="button" style="color:#dc3545; text-decoration: none;" class="btn btn-link"
+                            data-toggle="modal" data-target="#exampleModalCenter">
+                        <i class="fas fa-trash-alt"></i> &nbsp;Hapus
+                    </button>
+
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalCenterTitle"
+                                        th:text="'Hapus Jabatan ' + ${jabatans.nama}">Hapus Jabatan </h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Apakah anda yakin untuk menghapus jabatan ini?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                    <a role="button" class="btn btn-danger"
+                                       th:href="@{/jabatan/hapus(idJabatan=${jabatans.id})}">Ya, Hapus</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

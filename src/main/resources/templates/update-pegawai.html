@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragment :: header"></head>
+<body>
+
+<!--Navbar-->
+<div th:replace="fragments/fragment :: navbar"></div>
+
+<!--Container-->
+<div style="height: 150px; background-color: #007bff;">
+    <div class="content">
+        <h3 style="color:white;">Update Pegawai</h3>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <form class="needs-validation"  th:object="${pegawai}" th:action="@{/pegawai/ubah(idPegawai=${pegawai.id})}" method="post" novalidate>
+
+                        <div class="form-group row">
+                            <label for="nip" class="col-sm-3 col-form-label">Nomor Induk Pegawai</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="nip" class="form-control" id="nip" placeholder="Nip"
+                                       th:value="${pegawai.nip}" readonly>
+                                <small id="emailHelp" class="form-text text-muted">NIP dapat berubah ketika terdapat
+                                    perubahan pada data tanggal lahir, tahun masuk, dan/atau instansi.
+                                </small>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="nama" class="col-sm-3 col-form-label">Nama</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="nama" class="form-control" id="nama" placeholder="Nama"
+                                       th:value="${pegawai.nama}" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Tolong isi nama.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="tempatLahir" class="col-sm-3 col-form-label">Tempat Lahir</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="tempatLahir" class="form-control" id="tempatLahir"
+                                       placeholder="Tempat Lahir" th:value="${pegawai.tempatLahir}" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Tolong isi Tempat Lahir.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="tanggalLahir" class="col-sm-3 col-form-label">Tanggal Lahir</label>
+                            <div class="col-sm-6">
+                                <input type="date" name="tanggalLahir" class="form-control" id="tanggalLahir"
+                                       placeholder="Tanggal Lahir" th:value="${pegawai.tanggalLahir}" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Tolong isi Tanggal Lahir.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="tahunMasuk" class="col-sm-3 col-form-label">Tahun Masuk</label>
+                            <div class="col-sm-6">
+                                <input type="number" name="tahunMasuk" class="form-control" id="tahunMasuk"
+                                       placeholder="Tahun Masuk" th:value="${pegawai.tahunMasuk}" required min="1">
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Tolong isi Tahun Masuk.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="listProvinsi" class="col-sm-3 col-form-label">Provinsi</label>
+                            <div class="col-sm-6">
+                                <select id="listProvinsi" class="form-control" name="provinsi" required>
+                                    <option th:value="${''}" selected>Pilih Provinsi</option>
+                                    <option th:each="provinsi : ${provinsis}" name="provinsi" th:value="${provinsi.id}"
+                                            th:text="${provinsi.nama}"
+                                            th:selected="${provinsi.id == pegawai.instansi.provinsi.id}"></option>
+                                </select>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Tolong pilih Provinsi.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="instansi" class="col-sm-3 col-form-label">Nama Instansi</label>
+                            <div class="col-sm-6">
+                                <select id="instansi" class="form-control" name="instansi" required>
+                                    <option th:value="${''}" selected>Pilih Instansi</option>
+                                    <option th:each="instansi : ${instansis}"
+                                            th:if="${instansi.provinsi.id == pegawai.instansi.provinsi.id}"
+                                            name="instansi"
+                                            th:value="${instansi.id}" th:text="${instansi.nama}"
+                                            th:selected="${instansi.id == pegawai.instansi.id}"></option>
+                                </select>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Tolong pilih Instansi.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="instansi" class="col-sm-3 col-form-label">Jabatan</label>
+                            <div class="col-sm-6">
+                                <div th:each="jabatanPegawai, iterStat : *{listJabatanPegawai}" class="input-group"
+                                     th:id="'row' + (${iterStat.count})"
+                                     th:style="${iterStat.index > 0? 'margin-top: 15px' : ''}">
+
+                                    <select id="jabatans" class="custom-select"  th:field="*{listJabatanPegawai[__${iterStat.index}__].jabatan}" required>
+                                        <option th:value="${''}" selected>Pilih Jabatan</option>
+                                        <option th:each="jabatan : ${jabatans}"
+                                                th:value="${jabatan.id}"
+                                                th:text="${jabatan.nama}"
+                                                th:selected="${jabatan.id == jabatanPegawai.jabatan.id}"></option>
+                                    </select>
+                                    <input id="totalRow" type="hidden" th:if="${iterStat.last}"
+                                           th:value="${iterStat.count}"/>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-danger btn_remove" type="button"
+                                                th:id="${iterStat.count}"
+                                                th:disabled="${iterStat.first}"><strong><i class="fas fa-times"></i></strong>
+                                        </button>
+                                    </div>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Tolong pilih Jabatan.
+                                    </div>
+                                </div>
+                                <div id="new-jabatan"></div>
+
+                                <button class="btn btn-link btn-sm" type="button" id="add-jabatan"
+                                        name="add-jabatan"><strong>+ Tambah Jabatan Lainnya</strong>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <a class="btn btn-secondary" th:href="@{/pegawai(nip=${pegawai.nip})}" role="button"><i class="fas fa-times"></i> &nbsp;Batal</a>
+                            </div>
+                            <div class="col-sm-6">
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> &nbsp;Simpan</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <select id="jabatansTemplate" class="custom-select" style="display: none;">
+            <option th:value="${''}" selected>Pilih Jabatan</option>
+            <option th:each="jabatan : ${jabatans}"
+                    th:value="${jabatan.id}"
+                    th:text="${jabatan.nama}"
+            ></option>
+        </select>
+    </div>
+</div>
+</body>
+
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+
+    $(document).ready(function () {
+        // Handler for .ready() called.
+
+        var i = $('input#totalRow').val();
+
+        $('#add-jabatan').click(function () {
+            var jabatans = $('#jabatansTemplate').html();
+
+            i++;
+            $('#new-jabatan').append('<div class="input-group" id="row' + i + '" style="margin-top: 15px;"><select id="jabatans" class="custom-select" name="listJabatanPegawai[' +(i - 1) +'].jabatan" required>\n' +
+                jabatans + '</select>' +
+                '<div class="input-group-append">\n' +
+                '<button class="btn btn-danger btn_remove" type="button" id="' + i + '"' +
+                'name="add-jabatan"><strong><i class="fas fa-times"></i></strong>\n' +
+                '</button>\n' +
+                '</div>' +
+                '<div class="valid-feedback">Looks good!</div>\n' +
+                '<div class="invalid-feedback">Tolong pilih Jabatan.</div>\n' +
+                '</div>');
+        });
+
+        $(document).on('click', '.btn_remove', function () {
+            i--;
+            var button_id = $(this).attr("id");
+            $('#row' + button_id + '').remove();
+        });
+
+        $('#listProvinsi').change(
+            function () {
+                $.getJSON("http://localhost:8080/pegawai/instansi", {
+                    idProvinsi: $(this).val(),
+                    ajax: 'true'
+                }, function (data) {
+                    var html = '<option value="">Pilih Instansi</option>';
+                    var len = data.length;
+                    for (var i = 0; i < len; i++) {
+                        html += '<option value="' + data[i].id + '">'
+                            + data[i].nama + '</option>';
+                    }
+                    html += '</option>';
+                    $('#instansi').html(html);
+                });
+            });
+    });
+</script>
+</html>

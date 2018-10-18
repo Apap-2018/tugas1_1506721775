@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragment :: header"></head>
+<body>
+
+<!--Navbar-->
+<div th:replace="fragments/fragment :: navbar"></div>
+
+<div style="height: 150px; background-color: #007bff;">
+    <div class="content">
+        <h3 style="color:white;"><a class="text-secondary" th:href="@{/}"><i style="color: white;"
+                                                                             class="fas fa-arrow-left"></i></a>
+            &nbsp;<span
+                    th:text="'Instansi: ' + ${pegawaiTermuda.getInstansi().getNama()} + ' (' + ${pegawaiTermuda.getInstansi().getProvinsi().getNama()} + ')'"></span>
+        </h3>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4 style="text-align: center;"><strong>Data Pegawai Termuda</strong></h4>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p>Nomor Induk Pegawai</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p th:text="': &nbsp ' + ${pegawaiTermuda.getNip()}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p>Nama</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p th:text="': &nbsp ' +  ${pegawaiTermuda.getNama()}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p>Tempat Lahir</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p th:text="': &nbsp ' + ${pegawaiTermuda.getTempatLahir()}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p>Tanggal Lahir</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p style="color:#007bff; font-weight: bold;"
+                               th:text="': &nbsp ' + ${pegawaiTermuda.getTanggalLahir()}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p>Tahun Masuk</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p th:text="': &nbsp ' + ${pegawaiTermuda.getTahunMasuk()}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p>Nama Instansi</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p th:text="': &nbsp ' + ${pegawaiTermuda.getInstansi().getNama()} + ' - ' + ${pegawaiTermuda.getInstansi().getProvinsi().getNama()} "></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p>Jabatan</p>
+                        </div>
+                        <div class="col-md-8" style="overflow: scroll;">
+                            <h6 th:each="listJabatan, iterStat :${pegawaiTermuda.getListJabatanPegawai()}"
+                                style="display: inline-block;"><span
+                                    class="badge badge-dark" th:text="${listJabatan.getJabatan().getNama()}"></span>
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p>Gaji</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p th:text="': &nbsp ' + ${'Rp' + #numbers.formatDecimal(gajiPegawaiTermuda, 0, 'COMMA', 2, 'POINT')}"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h4 style="text-align: center;"><strong>Data Pegawai Tertua</strong></h4>
+                    <br>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p>Nomor Induk Pegawai</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p th:text="': &nbsp ' + ${pegawaiTertua.getNip()}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p>Nama</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p th:text="': &nbsp ' +  ${pegawaiTertua.getNama()}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p>Tempat Lahir</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p th:text="': &nbsp ' + ${pegawaiTertua.getTempatLahir()}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p>Tanggal Lahir</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p style="color: #007bff; font-weight: bold;"
+                               th:text="': &nbsp ' + ${pegawaiTertua.getTanggalLahir()}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p>Tahun Masuk</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p th:text="': &nbsp ' + ${pegawaiTertua.getTahunMasuk()}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p>Nama Instansi</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p th:text="': &nbsp ' + ${pegawaiTertua.getInstansi().getNama()} + ' - ' + ${pegawaiTertua.getInstansi().getProvinsi().getNama()} "></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p>Jabatan</p>
+                        </div>
+                        <div class="col-md-8" style="overflow: scroll;">
+                            <h6 th:each="listJabatan, iterStat :${pegawaiTertua.getListJabatanPegawai()}"
+                                style="display: inline-block;"><span
+                                    class="badge badge-dark" th:text="${listJabatan.getJabatan().getNama()}"></span>
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p>Gaji</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p th:text="': &nbsp ' + ${'Rp' + #numbers.formatDecimal(gajiPegawaiTertua, 0, 'COMMA', 2, 'POINT')}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

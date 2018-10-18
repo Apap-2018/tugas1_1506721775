@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragment :: header"></head>
+<body>
+
+<!--Navbar-->
+<div th:replace="fragments/fragment :: navbar"></div>
+<div style="height: 150px; background-color: #007bff;">
+    <div class="content">
+        <h3 style="color: white;"><a class="text-secondary" th:href="@{/}"><i style="color: white;" class="fas fa-arrow-left"></i></a>
+            &nbsp;<span
+                    th:text="' Detil Pegawai - ' + ${pegawai.nip}"></span></h3>
+        <div class="container-fluid">
+            <div th:if="${messageCreated == 'success'}" class="alert alert-success alert-dismissible fade show"
+                 role="alert">
+                Pegawai berhasil ditambah!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div th:if="${message == 'success'}" class="alert alert-success alert-dismissible fade show" role="alert">
+                Pegawai berhasil diperbarui!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p>Nomor Induk Pegawai</p>
+                        </div>
+                        <div class="col-md-9">
+                            <p th:text="': &nbsp ' + ${pegawai.nip}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p>Nama</p>
+                        </div>
+                        <div class="col-md-9">
+                            <p th:text="': &nbsp ' +  ${pegawai.nama}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p>Tempat Lahir</p>
+                        </div>
+                        <div class="col-md-9">
+                            <p th:text="': &nbsp ' + ${pegawai.tempatLahir}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p>Tanggal Lahir</p>
+                        </div>
+                        <div class="col-md-9">
+                            <p th:text="': &nbsp ' + ${pegawai.tanggalLahir}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p>Tahun Masuk</p>
+                        </div>
+                        <div class="col-md-9">
+                            <p th:text="': &nbsp ' + ${pegawai.tahunMasuk}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p>Nama Instansi</p>
+                        </div>
+                        <div class="col-md-9">
+                            <p th:text="': &nbsp ' + ${pegawai.instansi.nama} + ' - ' + ${pegawai.instansi.provinsi.nama} "></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p>Jabatan</p>
+                        </div>
+                        <div class="col-md-9">
+                            <h5 th:each="jabatan, iterStat :${pegawai.listJabatanPegawai}" style="display: inline-block;"><span
+                                    th:if="${iterStat.first}">: &nbsp;&nbsp;</span><span
+                                    class="badge badge-pill badge-dark" th:text="${jabatan.jabatan.nama}"></span></h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p>Gaji</p>
+                        </div>
+                        <div class="col-md-9">
+                            <p th:text="': &nbsp ' + ${'Rp' + #numbers.formatDecimal(gaji, 0, 'COMMA', 2, 'POINT')}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a class="btn btn-warning" th:href="@{/pegawai/ubah(pegawaiNip=${pegawai.nip})}"><i
+                                    class="fas fa-pen-square"></i>&nbsp; Ubah</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

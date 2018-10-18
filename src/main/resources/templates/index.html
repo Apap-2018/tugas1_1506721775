@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragment :: header"></head>
+<body>
+
+<!--Navbar-->
+<div th:replace="fragments/fragment :: navbar"></div>
+
+<!--Container-->
+<div style="height: 150px; background-color: #007bff;">
+    <div class="content">
+        <div th:if="${message == 'success'}" class="alert alert-success alert-dismissible fade show" role="alert">
+            Pegawai berhasil ditambah!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <h3 style="color: white;">Cari Pegawai</h3>
+        <div class="container-fluid">
+            <div th:if="${message == 'error'}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <div th:text="${errmsg}"></div>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="#" th:action="@{/pegawai}" method="get">
+                        <div class="input-group">
+                            <input type="text" class="form-control form-control-lg" name="nip" id="nip"
+                                   placeholder="Masukkan Nomor Induk Pegawai . . ." aria-label="Nomor Induk Pegawai"
+                                   aria-describedby="button-addon2" required>
+                            <div class="input-group-append">
+                                <button style="width: 50px;" class="btn btn-primary" type="submit" id="button-addon2"><i
+                                        class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <hr>
+                </div>
+                <div class="col-md-1">
+                    <h4 style="text-align: center; color: #007bff;"><strong>Atau</strong></h4>
+                </div>
+                <div class="col">
+                    <hr>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 15px;">
+                <div class="col-md-6">
+                    <h5 style="color: #1C2833; text-align: center;"><strong>Lihat Detil Jabatan</strong></h5>
+                </div>
+                <div class="col-md-6">
+                    <h5 style="color: #1C2833; text-align: center;"><strong>Lihat Pegawai Tertua dan
+                        Termuda</strong></h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <form action="#" th:action="@{/jabatan/view}" method="get">
+                        <div class="input-group">
+                            <select class="custom-select" id="listJabatan" name="idJabatan" aria-label="Jabatan"
+                                    required>
+                                <option value="" selected disabled>Pilih Jabatan</option>
+                                <option th:each="jabatan : ${jabatans}" name="idJabatan" th:value="${jabatan.id}"
+                                        th:text="${jabatan.nama}"></option>
+                            </select>
+                            <div class="input-group-append">
+                                <button class="btn btn-dark" type="submit"><i
+                                        class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <form action="#" th:action="@{/pegawai/termuda-tertua}" method="get">
+                        <div class="input-group">
+                            <select class="custom-select" id="listInstansi" name="idInstansi" aria-label="Instansi"
+                                    required>
+                                <option value="" selected disabled>Pilih Instansi</option>
+                                <option th:each="instansi : ${instansis}" name="idInstansi" th:value="${instansi.id}"
+                                        th:text="${instansi.nama} + ' (' + ${instansi.provinsi.nama} + ')'"></option>
+                            </select>
+                            <div class="input-group-append">
+                                <button class="btn btn-dark" type="submit"><i
+                                        class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
