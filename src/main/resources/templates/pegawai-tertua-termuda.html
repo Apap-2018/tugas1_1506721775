@@ -84,7 +84,7 @@
                             <p>Gaji</p>
                         </div>
                         <div class="col-md-8">
-                            <p th:text="': &nbsp ' + ${'Rp' + #numbers.formatDecimal(gajiPegawaiTermuda, 0, 'COMMA', 2, 'POINT')}"></p>
+                            <p th:text="': &nbsp ' + ${'Rp' + #numbers.formatDecimal(pegawaiTermuda.countGaji(), 0, 'COMMA', 2, 'POINT')}"></p>
                         </div>
                     </div>
                 </div>
@@ -157,7 +157,7 @@
                             <p>Gaji</p>
                         </div>
                         <div class="col-md-8">
-                            <p th:text="': &nbsp ' + ${'Rp' + #numbers.formatDecimal(gajiPegawaiTertua, 0, 'COMMA', 2, 'POINT')}"></p>
+                            <p th:text="': &nbsp ' + ${'Rp' + #numbers.formatDecimal(pegawaiTertua.countGaji(), 0, 'COMMA', 2, 'POINT')}"></p>
                         </div>
                     </div>
                 </div>

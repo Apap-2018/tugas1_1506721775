@@ -109,17 +109,5 @@ public class PegawaiServiceImpl implements PegawaiService {
     public Pegawai findFirstByInstansi_IdOrderByTanggalLahirAsc(Long id) {
         return pegawaiRepository.findFirstByInstansi_IdOrderByTanggalLahirAsc(id);
     }
-
-    @Override
-    public long countGaji(Pegawai pegawai) {
-        List<JabatanPegawai> jabatanPegawais = pegawai.getListJabatanPegawai();
-        double gaji = 0.0;
-        for(JabatanPegawai jabatan : jabatanPegawais) {
-            if(jabatan.getJabatan().getGaji_pokok() > gaji) {
-                gaji = jabatan.getJabatan().getGaji_pokok();
-            }
-        }
-        return (long) (gaji +  pegawai.getInstansi().getProvinsi().getPresentase_tunjangan()/100 * gaji);
-    }
 }
 

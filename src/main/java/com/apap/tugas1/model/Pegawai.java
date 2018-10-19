@@ -23,11 +23,12 @@ public class Pegawai implements Serializable {
 
     @Getter
     @Setter
-    @Column(unique = true)
+    @Column(name = "nip",unique = true)
     private String nip;
 
     @Getter
     @Setter
+    @Column(name = "nama")
     private String nama;
 
     @Getter
@@ -51,18 +52,20 @@ public class Pegawai implements Serializable {
     @JoinColumn(name = "id_instansi")
     private Instansi instansi;
 
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(name = "jabatan_pegawai", joinColumns = @JoinColumn(name = "id_pegawai", referencedColumnName = "id"),
-//            inverseJoinColumns = @JoinColumn(name = "id_jabatan", referencedColumnName = "id"))
-//    @Getter
-//    @Setter
-//    @OrderBy("gaji_pokok DESC")
-//    private List<Jabatan> jabatans;
-
     @OneToMany(mappedBy = "pegawai", fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @Setter
     @Getter
     private List<JabatanPegawai> listJabatanPegawai;
 
+    public long countGaji() {
+        List<JabatanPegawai> jabatanPegawais = this.getListJabatanPegawai();
+        double gaji = 0.0;
+        for(JabatanPegawai jabatan : jabatanPegawais) {
+            if(jabatan.getJabatan().getGaji_pokok() > gaji) {
+                gaji = jabatan.getJabatan().getGaji_pokok();
+            }
+        }
+        return (long) (gaji +  this.getInstansi().getProvinsi().getPresentase_tunjangan()/100 * gaji);
+    }
 }

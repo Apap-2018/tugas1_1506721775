@@ -16,8 +16,8 @@ public interface PegawaiRepository extends JpaRepository<Pegawai, Long> {
             "JOIN p.instansi i " +
             "JOIN i.provinsi pv " +
             "JOIN p.listJabatanPegawai lj " +
-            "JOIN lj.jabatan j" +
-            " WHERE (:idInstansi is null or i.id = :idInstansi) " +
+            "JOIN lj.jabatan j " +
+            "WHERE (:idInstansi is null or i.id = :idInstansi) " +
             "AND (:idProvinsi is null or pv.id = :idProvinsi) " +
             "AND (:idJabatan is null or j.id = :idJabatan)")
     List<Object[]> findAdvance(

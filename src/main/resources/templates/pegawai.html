@@ -91,7 +91,7 @@
                             <p>Gaji</p>
                         </div>
                         <div class="col-md-9">
-                            <p th:text="': &nbsp ' + ${'Rp' + #numbers.formatDecimal(gaji, 0, 'COMMA', 2, 'POINT')}"></p>
+                            <p th:text="': &nbsp ' + ${'Rp' + #numbers.formatDecimal(pegawai.countGaji(), 0, 'COMMA', 2, 'POINT')}"></p>
                         </div>
                     </div>
                     <div class="row">

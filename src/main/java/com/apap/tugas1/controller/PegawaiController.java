@@ -13,7 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Controller
 public class PegawaiController {
 
@@ -43,8 +42,6 @@ public class PegawaiController {
         this.jabatanPegawaiService = jabatanPegawaiService;
     }
 
-
-
     @RequestMapping(value = "/pegawai", method = RequestMethod.GET)
     public String viewPegawaiByNip(@RequestParam(value = "nip", required = false) String nip, Model model,
                                    RedirectAttributes redirectAttributes) {
@@ -52,12 +49,9 @@ public class PegawaiController {
 
         if (pegawai != null) {
             model.addAttribute("pegawai", pegawai);
-            model.addAttribute("gaji", pegawaiService.countGaji(pegawai));
             model.addAttribute("title", "Detail Pegawai");
             return "pegawai";
         }
-
-
 
         model.addAttribute("title", "NIP tidak ditemukan");
         redirectAttributes.addFlashAttribute("message", "error");
@@ -165,19 +159,15 @@ public class PegawaiController {
     }
 
     @RequestMapping(value = "/pegawai/termuda-tertua", method = RequestMethod.GET)
-    public String pegawiTertuaTermuda(@RequestParam(value = "idInstansi")Long id, Model model){
+    public String pegawiTertuaTermuda(@RequestParam(value = "idInstansi") Long id, Model model) {
 
         //Tertua
         Pegawai pegawaiTertua = pegawaiService.findFirstByInstansi_IdOrderByTanggalLahirAsc(id);
-
         model.addAttribute("pegawaiTertua", pegawaiTertua);
-        model.addAttribute("gajiPegawaiTertua", pegawaiService.countGaji(pegawaiTertua));
 
         //Termuda
         Pegawai pegawaiTermuda = pegawaiService.findFirstByInstansi_IdOrderByTanggalLahirDesc(id);
-
         model.addAttribute("pegawaiTermuda", pegawaiTermuda);
-        model.addAttribute("gajiPegawaiTermuda", pegawaiService.countGaji(pegawaiTermuda));
 
         return "pegawai-tertua-termuda";
     }

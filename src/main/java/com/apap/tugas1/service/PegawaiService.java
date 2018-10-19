@@ -19,8 +19,6 @@ public interface PegawaiService {
 
     String updatePegawai(Pegawai pegawai);
 
-    long countGaji(Pegawai pegawai);
-
     Pegawai findFirstByInstansi_IdOrderByTanggalLahirDesc(Long id);
 
     Pegawai findFirstByInstansi_IdOrderByTanggalLahirAsc(Long id);

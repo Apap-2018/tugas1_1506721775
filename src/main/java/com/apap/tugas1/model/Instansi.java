@@ -23,16 +23,17 @@ public class Instansi implements Serializable {
 
     @Getter
     @Setter
+    @Column(name = "nama")
     private String nama;
 
     @Getter
     @Setter
+    @Column(name = "deskripsi")
     private String deskripsi;
 
     @OneToMany(mappedBy = "instansi", fetch = FetchType.LAZY)
     @Setter
     @Getter
-    @OrderBy("tanggalLahir desc")
     @JsonIgnore
     private List<Pegawai> pegawais = new ArrayList<>();
 

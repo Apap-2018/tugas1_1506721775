@@ -7,7 +7,6 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "jabatan")
@@ -20,25 +19,22 @@ public class Jabatan {
 
     @Getter
     @Setter
+    @Column(name = "nama")
     private String nama;
 
     @Getter
     @Setter
+    @Column(name = "deskripsi")
     private String deskripsi;
 
     @Getter
     @Setter
+    @Column(name = "gaji_pokok")
     private Double gaji_pokok;
-
-//    @ManyToMany(mappedBy = "jabatans")
-//    @Getter
-//    @Setter
-//    private List<Pegawai> pegawais;
 
     @OneToMany(mappedBy = "jabatan", fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @Getter
     @Setter
     private List<JabatanPegawai> listJabatanPegawai;
-
 }

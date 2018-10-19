@@ -19,15 +19,16 @@ public class Provinsi implements Serializable {
 
     @Getter
     @Setter
+    @Column(name = "nama")
     private String nama;
 
     @Getter
     @Setter
+    @Column(name = "presentase_tunjangan")
     private Double presentase_tunjangan;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "provinsi")
     @Getter
     @Setter
     private List<Instansi> instansi;
-
 }
