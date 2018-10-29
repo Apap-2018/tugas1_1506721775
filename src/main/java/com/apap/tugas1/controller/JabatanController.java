@@ -46,7 +46,7 @@ public class JabatanController {
     public String viewAllJabatan(@RequestParam(value = "idJabatan", required = false) Long idJabatan, Model model) {
 
         model.addAttribute("jabatans", jabatanService.findByIdJabatan(idJabatan));
-        model.addAttribute("title", "Jabatan");
+        model.addAttribute("title", "Detil Jabatan");
 
         return "jabatan-detail";
 
@@ -56,7 +56,7 @@ public class JabatanController {
     public String updateJabatan(@RequestParam(value = "idJabatan", required = false) Long idJabatan, Model model) {
 
         model.addAttribute("jabatan", jabatanService.findByIdJabatan(idJabatan));
-        model.addAttribute("title", "Update Jabatan");
+        model.addAttribute("title", "Ubah Jabatan");
 
         return "update-jabatan";
     }
@@ -89,13 +89,15 @@ public class JabatanController {
     @RequestMapping(value = "/jabatan/hapus")
     public String deleteJabatan(@RequestParam(value = "idJabatan", required = false) Long idJabatan, RedirectAttributes redirectAttributes) {
 
-        try {
-            jabatanService.delete(idJabatan);
-            redirectAttributes.addFlashAttribute("message", "success-delete");
-            return "redirect:/jabatan/viewall";
-        } catch (Exception exc) {
+        Jabatan jabatan = jabatanService.findByIdJabatan(idJabatan);
+
+        if (!jabatan.getListJabatanPegawai().isEmpty()){
             redirectAttributes.addAttribute("idJabatan", idJabatan).addFlashAttribute("message", "error");
             return "redirect:/jabatan/view";
         }
+
+        jabatanService.delete(idJabatan);
+        redirectAttributes.addFlashAttribute("message", "success-delete");
+        return "redirect:/jabatan/viewall";
     }
 }

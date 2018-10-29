@@ -6,13 +6,13 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
-
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
+@Table(name="pegawai")
 public class Pegawai implements Serializable {
 
     @Id

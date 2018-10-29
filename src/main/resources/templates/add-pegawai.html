@@ -26,7 +26,7 @@
                                     Looks good!
                                 </div>
                                 <div class="invalid-feedback">
-                                    Tolong isi nama.
+                                    Tolong isi nama dengan benar.
                                 </div>
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                                     Looks good!
                                 </div>
                                 <div class="invalid-feedback">
-                                    Tolong isi Tempat Lahir.
+                                    Tolong isi Tempat Lahir dengan benar.
                                 </div>
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                                     Looks good!
                                 </div>
                                 <div class="invalid-feedback">
-                                    Tolong isi Tanggal Lahir.
+                                    Tolong isi Tanggal Lahir dengan benar.
                                 </div>
                             </div>
                         </div>
@@ -63,12 +63,12 @@
                             <label for="tahunMasuk" class="col-sm-3 col-form-label">Tahun Masuk</label>
                             <div class="col-sm-6">
                                 <input type="number" name="tahunMasuk" class="form-control" id="tahunMasuk"
-                                       placeholder="Tahun Masuk" required min="1">
+                                       placeholder="Tahun Masuk" required min="1000" max="9999">
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>
                                 <div class="invalid-feedback">
-                                    Tolong isi Tahun Masuk.
+                                    Tolong isi Tahun Masuk dengan benar.
                                 </div>
                             </div>
                         </div>
@@ -86,7 +86,7 @@
                                     Looks good!
                                 </div>
                                 <div class="invalid-feedback">
-                                    Tolong pilih Provinsi.
+                                    Tolong pilih Provinsi yang sesuai.
                                 </div>
                             </div>
                         </div>
@@ -101,7 +101,7 @@
                                     Looks good!
                                 </div>
                                 <div class="invalid-feedback">
-                                    Tolong pilih Instansi.
+                                    Tolong pilih Instansi yang sesuai.
                                 </div>
                             </div>
                         </div>
@@ -110,9 +110,6 @@
                             <label for="instansi" class="col-sm-3 col-form-label">Jabatan</label>
                             <div class="col-sm-6">
                                 <div th:each="jabatanPegawai, iterStat : *{listJabatanPegawai}">
-                                    <!--th:id="'row' + (${iterStat.count})"-->
-                                    <!--th:style="${iterStat.index > 0? 'margin-top: 15px' : ''}">-->
-
                                     <div class="input-group">
                                         <select id="jabatans" class="custom-select"
                                                 th:field="*{listJabatanPegawai[__${iterStat.index}__].jabatan}"
@@ -131,7 +128,7 @@
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
-                                            Tolong pilih Jabatan.
+                                            Tolong pilih Jabatan yang sesuai.
                                         </div>
                                     </div>
                                     <div id="new-jabatan"></div>
@@ -205,7 +202,7 @@
 
         $('#listProvinsi').change(
             function () {
-                $.getJSON("http://localhost:8080/pegawai/instansi", {
+                $.getJSON("/pegawai/instansi", {
                     idProvinsi: $(this).val(),
                     ajax: 'true'
                 }, function (data) {

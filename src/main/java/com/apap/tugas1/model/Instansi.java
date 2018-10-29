@@ -9,10 +9,10 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "instansi")
 public class Instansi implements Serializable {
 
     @Id
@@ -35,10 +35,10 @@ public class Instansi implements Serializable {
     @Setter
     @Getter
     @JsonIgnore
-    private List<Pegawai> pegawais = new ArrayList<>();
+    private List<Pegawai> pegawais;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_provinsi", nullable = false)
+    @JoinColumn(name = "id_provinsi")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @Getter
     @Setter

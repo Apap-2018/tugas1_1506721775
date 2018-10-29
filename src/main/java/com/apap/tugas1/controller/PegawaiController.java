@@ -53,7 +53,6 @@ public class PegawaiController {
             return "pegawai";
         }
 
-        model.addAttribute("title", "NIP tidak ditemukan");
         redirectAttributes.addFlashAttribute("message", "error");
         redirectAttributes.addFlashAttribute("errmsg", "Nomor Induk Pegawai tidak dapat ditemukan");
         return "redirect:/";
@@ -70,6 +69,7 @@ public class PegawaiController {
         model.addAttribute("pegawai", pegawai);
         model.addAttribute("listOfProvinsi", provinsiService.findAll());
         model.addAttribute("listOfJabatan", jabatanService.findAllJabatan());
+        model.addAttribute("title", "Tambah Pegawai");
         return "add-pegawai";
     }
 
@@ -94,6 +94,7 @@ public class PegawaiController {
         model.addAttribute("provinsis", provinsiService.findAll());
         model.addAttribute("jabatans", jabatanService.findAllJabatan());
         model.addAttribute("pegawai", pegawaiService.findPegawaiByNip(pegawaiNip));
+        model.addAttribute("title", "Ubah Pegawai");
         return "update-pegawai";
     }
 
@@ -117,12 +118,6 @@ public class PegawaiController {
     @ResponseBody
     public List<Instansi> findAllInstansi(@RequestParam(value = "idProvinsi") Integer idProvinsi) {
         return provinsiService.findById(idProvinsi).getInstansi();
-    }
-
-    @RequestMapping(value = "/pegawai-all", method = RequestMethod.GET)
-    @ResponseBody
-    public List<Pegawai> viewAll() {
-        return pegawaiService.findAllPegawai();
     }
 
     @RequestMapping(value = "/pegawai/cari", method = RequestMethod.GET)
@@ -168,6 +163,8 @@ public class PegawaiController {
         //Termuda
         Pegawai pegawaiTermuda = pegawaiService.findFirstByInstansi_IdOrderByTanggalLahirDesc(id);
         model.addAttribute("pegawaiTermuda", pegawaiTermuda);
+
+        model.addAttribute("title", "Pegawai Termuda - Tertua");
 
         return "pegawai-tertua-termuda";
     }
